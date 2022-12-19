@@ -6,8 +6,8 @@ public class AddressBookMain {
     public static void main(String[] args) {
 
         System.out.println("Welcome to Address Book");
-        AddressBookDeleteContact AB = new AddressBookDeleteContact();
-        // AddressBookEditContact AB = new AddressBookEditContact();
+        //AddressBookDeleteContact AB = new AddressBookDeleteContact();
+        AddressBookEditContact AB = new AddressBookEditContact();
         // AddressBookAddNewContacts AB = new AddressBookAddNewContacts();
         AB.addContactList();
 

@@ -1,18 +1,16 @@
 package day22Practiceproblem;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBookManage {
 
 	private Map<String, AddressBook> modelContactListMap;
-	List<ModelContactDetails> valuePrinted = null;
-
+	List<String> valuePrinted;
+	private int countPerson;
 	public AddressBookManage() {
 		modelContactListMap = new HashMap<>();
+		valuePrinted = new ArrayList<>();
 	}
 
 	public void addAddressBook(String addBookName, AddressBook addBook) {
@@ -44,26 +42,25 @@ public class AddressBookManage {
 		}
 	}
 
-	// UC 8 & 9 Ability to search Person in City or State across the multiple Addressbook
+	// UC 8 & 9, 10 Ability to search Person in City or State across the multiple Addressbook & Ability to Count Person in Address Book
 	public void findPersonByCity(String cityName)
 	{
 		modelContactListMap.forEach((key, addresBookValue) -> {
-			valuePrinted = addresBookValue.modelContactList.stream()
-					.filter(n -> n.city.equals(cityName))
-					.peek( n -> System.out.println("Person name---"+ n.firstName + " "+ n.lastName))
+			valuePrinted = addresBookValue.cityToPersonsMap.get(cityName).stream()
+					.peek(n -> System.out.println("person names: "+ n))
 					.collect(Collectors.toList());
 		});
+		countPerson = valuePrinted.size();
 	}
 
 	public void findPersonByState(String stateName)
 	{
 		modelContactListMap.forEach((key, addresBookValue) -> {
-			valuePrinted = addresBookValue.modelContactList.stream()
-					.filter(n -> n.state.equals(stateName))
-					.peek( n -> System.out.println("Person name---"+ n.firstName + " "+ n.lastName))
+			valuePrinted = addresBookValue.stateToPersonsMap.get(stateName).stream()
+					.peek(n -> System.out.println("person names: "+ n))
 					.collect(Collectors.toList());
-
 		});
+		countPerson = valuePrinted.size();
 	}
 
 	public static void main(String[] args) {
@@ -94,7 +91,7 @@ public class AddressBookManage {
 				default:
 					break;
 			}
-
+			System.out.println("Number of persons found = " + addBookManage.countPerson);	 // Printing after execution of program & display count of Person
 		}
 
 	}

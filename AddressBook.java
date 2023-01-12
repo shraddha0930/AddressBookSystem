@@ -1,16 +1,21 @@
 package day22Practiceproblem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBook {
 
 
 	public ArrayList<ModelContactDetails> modelContactList;  			// Declearing Arraylist with Model Class
-
+	public Map<String, ArrayList<String> > cityToPersonsMap;            // Declaring Map for storing a City & State
+	public Map<String, ArrayList<String> > stateToPersonsMap;
 	public AddressBook()
 	{
-		modelContactList = new ArrayList<ModelContactDetails>();  		// Initaillizing Arraylist
+		modelContactList = new ArrayList<ModelContactDetails>();        // Initaillizing Arraylist
+		cityToPersonsMap = new HashMap<>();                              // Initaillizing Hashmap for City & State
+		stateToPersonsMap = new HashMap<>();
 	}
 
 	public ModelContactDetails getContactInput()				// Getting a Input from User
@@ -19,6 +24,7 @@ public class AddressBook {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter First Name:");
 		String fName = sc.nextLine();
+
 		System.out.println("Enter Last Name:");
 		String lName = sc.nextLine();
 		System.out.println("Enter the Address:");
@@ -44,6 +50,8 @@ public class AddressBook {
 	{
 		System.out.println("Adding a New Contact for " + createPerson.firstName);      // Creating a Method and Adding object in a Arraylist
 		modelContactList.add(createPerson);
+		cityToPersonsMap.computeIfAbsent(createPerson.city, k -> new ArrayList<>()).add(createPerson.firstName);    // Getting a city with person name & storing in hashmap
+		stateToPersonsMap.computeIfAbsent(createPerson.state, k -> new ArrayList<>()).add(createPerson.firstName);  // Getting a state with person name & storing in hashmap
 	}
 
 	public void editContact() 								// Creating a Method and Edit with Switch Statement
@@ -165,7 +173,6 @@ public class AddressBook {
 			}
 		}
 	}
-
 	// UC 6 Create a Multiple Address Book
 	public AddressBook addressBookOption()
 	{
@@ -208,6 +215,7 @@ public class AddressBook {
 				case 5:
 					AD.duplicateContact();
 					break;
+
 				case 6:
 					System.out.println("Thank You We are Exiting");
 					runLoop = false;
@@ -229,8 +237,6 @@ public class AddressBook {
 		String duplicateName = sc.nextLine();
 		for (int i = 0; i < modelContactList.size(); i++)
 		{
-			ModelContactDetails model = modelContactList.get(i);
-
 			if (modelContactList.get(i).getFirstName().equals(duplicateName)) {
 				System.out.println("Contact Already Exist, Please Try Again");
 			}

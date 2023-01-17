@@ -180,7 +180,7 @@ public class AddressBook {
 		boolean runLoop = true;
 		while(runLoop)											// Checking a Choice with Switch Statement
 		{
-			System.out.println("1.Adding Contact \n2.Update Contact \n3.Delete Contact \n4.View Contact \n5.Add Multiple Person \n6.Sort by Person \n7.Exit");
+			System.out.println("1.Adding Contact \n2.Update Contact \n3.Delete Contact \n4.View Contact \n5.Add Multiple Person \n6.Sort by Person \n7.Sort by City & State \n8.Exit");
 			System.out.println("Enter a Your Choice :");
 			ch = sc.nextInt();
 
@@ -218,6 +218,13 @@ public class AddressBook {
 					break;
 
 				case 7:
+					System.out.println("------Sorted by City----");
+					AD.viewSortedByCity();
+					System.out.println("------Sorted by State----");
+					AD.viewSortedByState();
+					break;
+
+				case 8:
 					System.out.println("Thank You We are Exiting");
 					runLoop = false;
 					break;
@@ -245,13 +252,26 @@ public class AddressBook {
 
 	}
 
-	// UC8 Sorted Name by Alphabetically Order
+	// UC11 Sorted Name by Alphabetically Order
 	public void viewSortedByNames() {
 		List<ModelContactDetails> sortedDetails = modelContactList.stream()
 				.sorted(Comparator.comparing(n->n.toString()))
 				.peek(n -> System.out.println(n))
 				.collect(Collectors.toList());
 	}
-
+	// UC12 Sorted Name by Alphabetically Order with City Name
+	public void viewSortedByCity() {
+		List<ModelContactDetails> sortedDetailsByCity = modelContactList.stream()
+				.sorted((ab1, ab2) -> ab1.getCity().compareTo(ab2.getCity()))
+				.peek(addBook -> System.out.println(addBook))
+				.collect(Collectors.toList());
+	}
+	// UC12 Sorted Name by Alphabetically Order with State Name
+	public void viewSortedByState() {
+		List<ModelContactDetails> sortedDetailsByCity = modelContactList.stream()
+				.sorted((ab1, ab2) -> ab1.getState().compareTo(ab2.getState()))
+				.peek(addBook -> System.out.println(addBook))
+				.collect(Collectors.toList());
+	}
 
 }

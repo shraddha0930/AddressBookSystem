@@ -2,7 +2,6 @@ package day22Practiceproblem;
 
 public class ModelContactDetails {
 
-
 	// Declearing a Variable
 	public String firstName, lastName, address, city, state, email;
 	public long zip;
@@ -78,14 +77,5 @@ public class ModelContactDetails {
 				+ ", city=" + city + ", state=" + state + ", email=" + email + ", zip=" + zip + ", phoneNo=" + phoneNo
 				+ "]";
 	}
-
-
-
-
-
-
-
-
-
 
 }
